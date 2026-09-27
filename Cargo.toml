@@ -1,0 +1,88 @@
+# Machie — Cargo workspace root.
+#
+# See docs/decisions/ADR-0001-tech-stack.md and the project specification
+# (machie-engineering-spec.md) for the rationale behind this layout.
+#
+# NOTE: `apps/desktop` (the Tauri shell) is intentionally NOT a workspace
+# member yet. It is added during Chunk 2 of Phase 0, together with the
+# frontend build pipeline. Adding it now would make `cargo build` require
+# the frontend `dist/` to exist, which complicates Phase 0 bootstrap.
+
+[workspace]
+resolver = "2"
+members = [
+    "crates/core",
+    "crates/runtime",
+    "crates/router",
+    "crates/search",
+    "crates/documents",
+    "crates/tools",
+    "crates/permissions",
+    "crates/sessions",
+    "crates/database",
+    "crates/providers",
+    "crates/web",
+    "crates/plugins",
+    "integrations/opencode",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.77"
+license = "MIT OR Apache-2.0"
+repository = "https://example.invalid/machie"
+authors = ["Machie Contributors"]
+
+[workspace.dependencies]
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Errors
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Async
+tokio = { version = "1.40", features = ["rt-multi-thread", "macros", "sync", "time", "fs", "io-util"] }
+futures = "0.3"
+
+# Observability
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+# Storage
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "sqlite", "migrate", "macros"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.10", features = ["v4", "serde"] }
+
+# Internal crates
+machie-core = { path = "crates/core" }
+machie-runtime = { path = "crates/runtime" }
+machie-router = { path = "crates/router" }
+machie-search = { path = "crates/search" }
+machie-documents = { path = "crates/documents" }
+machie-tools = { path = "crates/tools" }
+machie-permissions = { path = "crates/permissions" }
+machie-sessions = { path = "crates/sessions" }
+machie-database = { path = "crates/database" }
+machie-providers = { path = "crates/providers" }
+machie-web = { path = "crates/web" }
+machie-plugins = { path = "crates/plugins" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = "warn"
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true

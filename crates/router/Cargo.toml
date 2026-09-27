@@ -1,0 +1,21 @@
+[package]
+name = "machie-router"
+description = "Intent/task classification and capability-based model selection."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+
+[[bin]]
+name = "router-eval"
+path = "src/bin/router_eval.rs"
+
+[lints]
+workspace = true

@@ -1,0 +1,14 @@
+[package]
+name = "machie-tools"
+description = "Typed deterministic tool registry and built-in tools."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+
+[lints]
+workspace = true
