@@ -172,9 +172,7 @@ mod tests {
             ("cloud_enabled", NetworkMode::CloudEnabled),
             ("full", NetworkMode::Full),
         ] {
-            let text = format!(
-                "config_version = 1\n[network]\nmode = \"{raw}\"\n"
-            );
+            let text = format!("config_version = 1\n[network]\nmode = \"{raw}\"\n");
             let cfg = MachieConfig::from_toml_str(&text).expect("parse");
             assert_eq!(cfg.network.mode, expected);
         }

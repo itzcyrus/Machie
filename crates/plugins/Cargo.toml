@@ -1,6 +1,6 @@
 [package]
 name = "machie-plugins"
-description = "Plugin host and extension interfaces for Machie."
+description = "Plugin system: declared capabilities, permissions, and tools."
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

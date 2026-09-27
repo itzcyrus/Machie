@@ -12,7 +12,7 @@ dist/
 
 # Tauri generated
 apps/desktop/gen/
-apps/desktop/ui/dist/
+apps/desktop/target/
 
 # SQLite local data (never commit user data)
 *.db

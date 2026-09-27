@@ -1,0 +1,30 @@
+[package]
+name = "machie-desktop"
+description = "Machie desktop shell (Tauri 2)."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lib]
+name = "machie_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "machie-desktop"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build.workspace = true
+
+[dependencies]
+tauri.workspace = true
+serde.workspace = true
+
+# NOTE: This crate does not inherit `[lints] workspace = true`.
+# The `tauri::generate_context!` macro emits code that trips the
+# workspace-wide `unsafe_code = "forbid"` lint, which is correct for our
+# own core code but not for generated macro output. Core crates still
+# inherit the workspace lints.

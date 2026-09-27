@@ -2,15 +2,11 @@
 #
 # See docs/decisions/ADR-0001-tech-stack.md and the project specification
 # (machie-engineering-spec.md) for the rationale behind this layout.
-#
-# NOTE: `apps/desktop` (the Tauri shell) is intentionally NOT a workspace
-# member yet. It is added during Chunk 2 of Phase 0, together with the
-# frontend build pipeline. Adding it now would make `cargo build` require
-# the frontend `dist/` to exist, which complicates Phase 0 bootstrap.
 
 [workspace]
 resolver = "2"
 members = [
+    "apps/desktop",
     "crates/core",
     "crates/runtime",
     "crates/router",
@@ -56,6 +52,10 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "sqlite", "migrate", "macros"] }
 chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "1.10", features = ["v4", "serde"] }
+
+# Desktop shell
+tauri = { version = "2", features = [] }
+tauri-build = { version = "2", features = [] }
 
 # Internal crates
 machie-core = { path = "crates/core" }
